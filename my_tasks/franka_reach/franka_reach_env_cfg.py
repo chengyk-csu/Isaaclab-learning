@@ -17,3 +17,15 @@ class MyFrankaReachEnvCfgScale02(MyFrankaReachEnvCfg):
     def __post_init__(self):
         super().__post_init__()
         self.actions.arm_action.scale = 0.2
+
+from . import mdp
+
+@configclass
+class MyFrankaReachExpRewardEnvCfg(
+    MyFrankaReachEnvCfg
+):
+    def __post_init__(self):
+        super().__post_init__()
+        self.rewards.end_effector_position_tracking_fine_grained.func = (
+            mdp.position_command_error_exp
+        )
